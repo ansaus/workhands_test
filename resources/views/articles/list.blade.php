@@ -1,28 +1,56 @@
-@extends('layouts.app') <!-- Подключаем основной шаблон -->
+@extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>Каталог статей</h1>
-
-        <!-- Листинг статей -->
+    <div class="container my-5">
         <div class="row">
-            @foreach($articles as $article)
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="{{ $article->thumbnail }}" class="card-img-top" alt="Миниатюра">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $article->title }}</h5>
-                            <p class="card-text">{{ Str::limit($article->body, 100) }}</p>
-                            <a href="{{ route('articles.show', $article->id) }}" class="btn btn-primary">Читать далее</a>
-                        </div>
+            <!-- Sidebar для тегов -->
+            <div class="col-md-3">
+                <div class="mb-4">
+                    <h5>Теги</h5>
+                    <div class="tags-list">
+                        @foreach ($tags as $tag)
+                            <a href="{{ route('articles.index', ['tag' => $tag->id]) }}" class="badge bg-secondary text-white mb-2">{{ $tag->name }}</a>
+                        @endforeach
                     </div>
                 </div>
-            @endforeach
-        </div>
+            </div>
 
-        <!-- Пейджинация -->
-        <div class="d-flex justify-content-center">
-            {{ $articles->links() }}
+            <!-- Список статей -->
+            <div class="col-md-9">
+                @foreach ($articles as $article)
+                    <div class="card mb-4">
+                        <!-- Изображение -->
+                        <img src="{{ $article->image ?? 'https://via.placeholder.com/800x300' }}" class="card-img-top" alt="{{ $article->title }}">
+                        <!-- Контент статьи -->
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $article->title }}</h5>
+                            <p class="card-text">{!! Str::limit($article->body, 200)  !!}</p>
+                            <div class="d-flex align-items-center text-secondary">
+                                <!-- Счетчик просмотров -->
+                                <div class="d-flex align-items-center me-4">
+                                    <span class="me-1">
+                                        <i class="bi bi-eye-fill fs-4"></i>
+                                    </span>
+                                    <span class="small">{{ $articleDTOs[$article->id]->getViewsCount() }}</span>
+                                </div>
+                                <!-- Счетчик лайков -->
+                                <div class="d-flex align-items-center text-secondary">
+                                    <span class="me-1">
+                                        <i class="bi bi-heart fs-6"></i>
+                                    </span>
+                                    <span class="small">{{ $articleDTOs[$article->id]->getLikesCount() }}</span>
+                                </div>
+                            </div>
+                            <a href="{{ route('articles.show', $article->id) }}" class="btn btn-outline-secondary mt-3">Читать далее</a>
+                        </div>
+                    </div>
+                @endforeach
+
+                <!-- Пагинация -->
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $articles->links() }}
+                </div>
+            </div>
         </div>
     </div>
 @endsection

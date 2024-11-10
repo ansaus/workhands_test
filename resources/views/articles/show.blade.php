@@ -33,21 +33,7 @@
             </div>
 
             <!-- Форма для комментариев -->
-            {{--        <div class="comment-form mt-5">--}}
-            {{--            <h4 class="mb-4">Оставить комментарий</h4>--}}
-            {{--            <form action="{{ route('articles.comment', $article->id) }}" method="POST">--}}
-            {{--                @csrf--}}
-            {{--                <div class="mb-3">--}}
-            {{--                    <label for="subject" class="form-label">Тема сообщения</label>--}}
-            {{--                    <input type="text" name="subject" id="subject" class="form-control" required>--}}
-            {{--                </div>--}}
-            {{--                <div class="mb-3">--}}
-            {{--                    <label for="body" class="form-label">Сообщение</label>--}}
-            {{--                    <textarea name="body" id="body" class="form-control" rows="4" required></textarea>--}}
-            {{--                </div>--}}
-            {{--                <button type="submit" class="btn btn-primary">Отправить</button>--}}
-            {{--            </form>--}}
-            {{--        </div>--}}
+            <comment article-id="{{ $article->id }}"></comment>
         </div>
     </div>
 @endsection

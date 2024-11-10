@@ -1,0 +1,48 @@
+/* Основной flex-контейнер для всей страницы */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Основной контент заполняет всю оставшуюся высоту */
+.content {
+    flex: 1 0 auto;
+}
+
+/* Футер фиксируется внизу при необходимости */
+footer {
+    flex-shrink: 0;
+}
+
+/* кастомная пагинация */
+.pagination .page-link {
+    padding: 0.5rem 1rem;
+    color: #6c757d;
+    background-color: #fff;
+    border: 1px solid #6c757d;
+    margin: 0 2px;
+    text-decoration: none;
+}
+
+.pagination .page-link:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+    color: #ffffff;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #5a6268;
+    border-color: #5a6268;
+    color: #ddd;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    color: #6c757d;
+}

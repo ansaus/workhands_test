@@ -18,7 +18,7 @@
                             <h5 class="card-title">{{ $article->title }}</h5>
                             <p class="card-text">{!! Str::limit($article->body, 100)  !!}</p>
                             <div class="mt-auto">
-                                <a href="{{ route('articles.show', $article->id) }}" class="btn btn-secondary">Читать далее</a>
+                                <a href="{{ route('articles.show', $article->id) }}" class="btn btn-outline-secondary">Читать далее</a>
                             </div>
                         </div>
                         <!-- Футер карточки -->
@@ -28,14 +28,14 @@
                                 <span class="me-1">
                                     <i class="bi bi-eye-fill"></i>
                                 </span>
-                                <span class="small">{{ $article->views_count }}</span>
+                                <span class="small">{{ $articleDTOs[$article->id]->getViewsCount() }}</span>
                             </div>
                             <!-- Счетчик лайков -->
                             <div class="d-flex align-items-center text-secondary">
                                 <span class="me-1">
                                     <i class="bi bi-heart"></i>
                                 </span>
-                                <span class="small">{{ $article->likes_count }}</span>
+                                <span class="small">{{ $articleDTOs[$article->id]->getLikesCount() }}</span>
                             </div>
                         </div>
                     </div>

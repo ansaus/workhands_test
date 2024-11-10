@@ -33,10 +33,12 @@ class ProcessComment implements ShouldQueue
      */
     public function handle()
     {
+        // Симуляция длительной операции
+        sleep(1);
+
         // Сохранение комментария в базе данных
-        CommentDTO::create([
+        Comment::create([
             'article_id' => $this->dto->getArticleId(),
-            'user_id' => $this->dto->getUserId(),
             'subject' => $this->dto->getSubject(),
             'body' => $this->dto->getBody(),
         ]);

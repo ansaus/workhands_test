@@ -35,7 +35,6 @@ class Article extends Model
 
     protected $fillable = ['title', 'body', 'thumbnail'];
 
-    // Scope для сортировки по дате создания в порядке убывания (LIFO)
     public function scopeLatestFirst($query)
     {
         return $query->orderBy('created_at', 'desc');

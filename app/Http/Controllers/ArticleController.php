@@ -12,7 +12,6 @@ class ArticleController extends Controller
     private ArticleLikeService $likeService;
     private ArticleViewService $viewService;
 
-    // Инжектируем ArticleService через конструктор
     public function __construct(ArticleLikeService $likeService, ArticleViewService $viewService)
     {
         $this->likeService = $likeService;
@@ -21,20 +20,19 @@ class ArticleController extends Controller
 
     public function index()
     {
-        // Получаем статьи с сортировкой LIFO и пагинацией
         $articles = Article::latestFirst()->paginate(6);
+        $articleDTOs = $this->getArticleDTOs($articles);
 
-        // Передаем данные в представление
-        return view('articles.index', compact('articles'));
+        return view('articles.index', compact('articles', 'articleDTOs'));
     }
 
     public function articleList()
     {
-        // Получаем статьи с сортировкой LIFO и пагинацией
         $articles = Article::latestFirst()->paginate(10);
+        $articleDTOs = $this->getArticleDTOs($articles);
+        $tags = [];
 
-        // Передаем данные в представление
-        return view('articles.list', compact('articles'));
+        return view('articles.list', compact('articles', 'articleDTOs', 'tags'));
     }
 
     public function show($id)
@@ -57,5 +55,18 @@ class ArticleController extends Controller
             $this->likeService->getLikesCount($article->id),
             $this->viewService->getViewsCount($article->id)
         );
+    }
+
+    /**
+     * @param Article[]|mixed $articles
+     * @return ArticleDTO[]
+     */
+    private function getArticleDTOs(&$articles):array
+    {
+        $result = [];
+        foreach ($articles as $article) {
+            $result[$article->id] = $this->getArticleDTO($article);
+        }
+        return $result;
     }
 }

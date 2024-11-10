@@ -1,6 +1,6 @@
 <template>
   <button @click="likeArticle" class="like-button d-flex align-items-center" style="cursor: pointer;">
-    <i :class="liked ? 'bi bi-heart-fill fs-4' : 'bi bi-heart fs-4'" class=""></i>
+    <i class="bi bi-heart fs-4"></i>
     <label for="likesCount" class="like-label ms-1">{{ likesCount }}</label>
   </button>
 </template>
@@ -51,10 +51,6 @@ export default {
 
 .like-button:hover {
   color: #dc3545; /* Цвет при наведении */
-}
-
-.liked {
-  color: #dc3545; /* Цвет для "лайкнутого" состояния */
 }
 
 .likes-label {
