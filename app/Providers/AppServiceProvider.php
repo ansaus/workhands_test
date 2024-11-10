@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\ArticleLikeService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(ArticleLikeService::class, function ($app) {
+            return new ArticleLikeService();
+        });
     }
 
     /**

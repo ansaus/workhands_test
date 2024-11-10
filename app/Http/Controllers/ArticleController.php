@@ -2,10 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\ArticleDTO;
 use App\Models\Article;
+use App\Services\ArticleLikeService;
+use App\Services\ArticleViewService;
 
 class ArticleController extends Controller
 {
+    private ArticleLikeService $likeService;
+    private ArticleViewService $viewService;
+
+    // Инжектируем ArticleService через конструктор
+    public function __construct(ArticleLikeService $likeService, ArticleViewService $viewService)
+    {
+        $this->likeService = $likeService;
+        $this->viewService = $viewService;
+    }
+
     public function index()
     {
         // Получаем статьи с сортировкой LIFO и пагинацией
@@ -26,10 +39,23 @@ class ArticleController extends Controller
 
     public function show($id)
     {
-        // Найти статью по ID
         $article = Article::findOrFail($id);
+        $articleDTO = $this->getArticleDTO($article);
 
-        // Отобразить представление для статьи
-        return view('articles.show', compact('article'));
+        return view('articles.show', compact('article', 'articleDTO'));
+    }
+
+    private function getArticleDTO(Article $article): ArticleDTO
+    {
+        return new ArticleDTO(
+            $article->id,
+            $article->title,
+            $article->body,
+            $article->thumbnail,
+            $article->created_at,
+            $article->updated_at,
+            $this->likeService->getLikesCount($article->id),
+            $this->viewService->getViewsCount($article->id)
+        );
     }
 }

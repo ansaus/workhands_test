@@ -1,10 +1,8 @@
 <template>
-  <div class="d-flex align-items-center">
-    <span @click="likeArticle" class="me-1 like-icon" style="cursor: pointer;">
-      <i :class="liked ? 'bi bi-heart-fill fs-3' : 'bi bi-heart fs-3'"></i>
-    </span>
-    <span class="small">{{ likesCount }}</span>
-  </div>
+  <button @click="likeArticle" class="like-button d-flex align-items-center" style="cursor: pointer;">
+    <i :class="liked ? 'bi bi-heart-fill fs-4' : 'bi bi-heart fs-4'" class=""></i>
+    <label for="likesCount" class="like-label ms-1">{{ likesCount }}</label>
+  </button>
 </template>
 
 <script>
@@ -22,19 +20,18 @@ export default {
   data() {
     return {
       likesCount: this.initialLikes,
-      liked: false
+      liked: this.initialLikes > 0
     };
   },
   methods: {
     likeArticle() {
-      // Обработка клика на лайк
       axios.post(`/api/articles/${this.articleId}/like`)
           .then(response => {
             this.likesCount = response.data.likes_count;
             this.liked = true;
           })
           .catch(error => {
-            console.error('Произошла ошибка при добавлении лайка:', error);
+            console.error('Произошла ошибка при инкрементации счетчика лайков:', error);
           });
     }
   }
@@ -42,7 +39,25 @@ export default {
 </script>
 
 <style scoped>
-.like-icon:hover {
-  color: #dc3545; /* К примеру, изменение цвета на красный при наведении */
+.like-button {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #6c757d; /* Цвет кнопки */
+  transition: color 0.2s ease-in-out;
+}
+
+.like-button:hover {
+  color: #dc3545; /* Цвет при наведении */
+}
+
+.liked {
+  color: #dc3545; /* Цвет для "лайкнутого" состояния */
+}
+
+.likes-label {
+  font-size: 1rem;
 }
 </style>

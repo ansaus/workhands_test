@@ -2,19 +2,19 @@
 
 namespace App\Services;
 
-use App\DTOs\AddCommentDTO;
+use App\DTOs\CommentDTO;
 use App\Jobs\ProcessComment;
 use Illuminate\Http\JsonResponse;
 
-class CommentService
+class ArticleCommentService
 {
     /**
      * Добавление комментария.
      *
-     * @param AddCommentDTO $dto
+     * @param CommentDTO $dto
      * @return JsonResponse
      */
-    public function addComment(AddCommentDTO $dto): JsonResponse
+    public function addComment(CommentDTO $dto): JsonResponse
     {
         // Добавляем задание ProcessComment в очередь для асинхронной обработки
         ProcessComment::dispatch($dto);

@@ -2,16 +2,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Services\LikeService;
-use App\Services\ViewService;
+use App\Services\ArticleLikeService;
+use App\Services\ArticleViewService;
 use Illuminate\Http\JsonResponse;
 
 class ArticleController extends Controller
 {
-    protected ViewService $viewService;
-    protected LikeService $likeService;
+    protected ArticleViewService $viewService;
+    protected ArticleLikeService $likeService;
 
-    public function __construct(ViewService $viewService, LikeService $likeService)
+    public function __construct(ArticleViewService $viewService, ArticleLikeService $likeService)
     {
         $this->viewService = $viewService;
         $this->likeService = $likeService;

@@ -4,8 +4,8 @@
     <div class="container my-5">
         <!-- Верхний блок с заголовком и описанием -->
         <div class="text-center mb-5">
-            <h1 class="display-4">Рабочие руки</h1>
-            <p class="lead">тестовое задание для веб разработчика</p>
+            <h1 class="display-4">Звуки Истории</h1>
+            <p class="lead">Путешествие во времени через мелодии и инструменты</p>
         </div>
 
         <!-- Листинг статей -->
@@ -16,7 +16,7 @@
                         <img src="{{ $article->thumbnail }}" class="card-img-top" alt="Миниатюра статьи">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $article->title }}</h5>
-                            <p class="card-text">{{ Str::limit($article->body, 100) }}</p>
+                            <p class="card-text">{!! Str::limit($article->body, 100)  !!}</p>
                             <div class="mt-auto">
                                 <a href="{{ route('articles.show', $article->id) }}" class="btn btn-secondary">Читать далее</a>
                             </div>
