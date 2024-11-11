@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DTOs\ArticleDTO;
 use App\Models\Article;
+use App\Models\Tag;
 use App\Services\ArticleLikeService;
 use App\Services\ArticleViewService;
 
@@ -20,7 +21,8 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::latestFirst()->paginate(6);
+        $itemsPerPage = config('pagination.articles_index_per_page');
+        $articles = Article::latestFirst()->paginate($itemsPerPage);
         $articleDTOs = $this->getArticleDTOs($articles);
 
         return view('articles.index', compact('articles', 'articleDTOs'));
@@ -28,11 +30,21 @@ class ArticleController extends Controller
 
     public function articleList()
     {
-        $articles = Article::latestFirst()->paginate(10);
-        $articleDTOs = $this->getArticleDTOs($articles);
-        $tags = [];
+        $tagId = request('tag');
 
-        return view('articles.list', compact('articles', 'articleDTOs', 'tags'));
+        $itemsPerPage = config('pagination.articles_list_per_page');
+        if ($tagId) {
+            $articles = Article::whereHas('tags', function ($query) use ($tagId) {
+                $query->where('tags.id', $tagId);
+            })->latestFirst()->paginate($itemsPerPage);
+        } else {
+            $articles = Article::latestFirst()->paginate($itemsPerPage);
+        }
+
+        $articleDTOs = $this->getArticleDTOs($articles);
+        $tags = Tag::all();
+
+        return view('articles.list', compact('articles', 'articleDTOs', 'tags', 'tagId'));
     }
 
     public function show($id)

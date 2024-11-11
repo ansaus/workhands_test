@@ -13,7 +13,7 @@
             @foreach($articles as $article)
                 <div class="col-md-4 mb-4">
                     <div class="card shadow-sm h-100">
-                        <img src="{{ $article->thumbnail }}" class="card-img-top" alt="Миниатюра статьи">
+                        <img src="{{ asset('images/thumbnails/1.png') }}" class="card-img-top" alt="Миниатюра статьи">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $article->title }}</h5>
                             <p class="card-text">{!! Str::limit($article->body, 100)  !!}</p>

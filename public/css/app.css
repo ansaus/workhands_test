@@ -47,3 +47,10 @@ footer {
     color: #6c757d;
 }
 
+/**/
+.badge-outline-secondary {
+    color: #6c757d;
+    border: 1px solid #6c757d;
+    background-color: transparent;
+}
+

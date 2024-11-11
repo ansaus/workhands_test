@@ -21,11 +21,11 @@
             </div>
 
             <!-- Теги статьи -->
-            {{--        <div class="mb-4">--}}
-            {{--            @foreach($article->tags as $tag)--}}
-            {{--                <span class="badge bg-secondary me-2">{{ $tag->name }}</span>--}}
-            {{--            @endforeach--}}
-            {{--        </div>--}}
+            <div class="mb-4">
+                @foreach($article->tags as $tag)
+                    <a href="{{ route('articles.list', ['tag' => $tag->id]) }}" class="badge badge-outline-secondary text-decoration-none me-2">{{ $tag->name }}</a>
+                @endforeach
+            </div>
 
             <!-- Текст статьи -->
             <div class="mb-5">

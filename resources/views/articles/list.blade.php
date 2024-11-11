@@ -9,7 +9,7 @@
                     <h5>Теги</h5>
                     <div class="tags-list">
                         @foreach ($tags as $tag)
-                            <a href="{{ route('articles.index', ['tag' => $tag->id]) }}" class="badge bg-secondary text-white mb-2">{{ $tag->name }}</a>
+                            <a href="{{ route('articles.list', ['tag' => $tag->id]) }}" class="{{ isset($tagId) && $tagId == $tag->id ? 'badge bg-secondary text-white' : 'badge badge-outline-secondary' }} text-decoration-none mb-2">{{ $tag->name }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                 @foreach ($articles as $article)
                     <div class="card mb-4">
                         <!-- Изображение -->
-                        <img src="{{ $article->image ?? 'https://via.placeholder.com/800x300' }}" class="card-img-top" alt="{{ $article->title }}">
+                        <img src="{{ asset('images/full/1.png') }}" class="card-img-top" alt="{{ $article->title }}">
                         <!-- Контент статьи -->
                         <div class="card-body">
                             <h5 class="card-title">{{ $article->title }}</h5>
