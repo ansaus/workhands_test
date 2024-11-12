@@ -16,7 +16,7 @@
                         <img src="{{ asset('images/thumbnails/1.png') }}" class="card-img-top" alt="Миниатюра статьи">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $article->title }}</h5>
-                            <p class="card-text">{!! Str::limit($article->body, 100)  !!}</p>
+                            <p class="card-text">{!! Str::limit($article->body, $previewSymLimit)  !!}</p>
                             <div class="mt-auto">
                                 <a href="{{ route('articles.show', $article->id) }}" class="btn btn-outline-secondary">Читать далее</a>
                             </div>

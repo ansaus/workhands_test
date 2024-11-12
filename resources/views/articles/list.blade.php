@@ -24,7 +24,7 @@
                         <!-- Контент статьи -->
                         <div class="card-body">
                             <h5 class="card-title">{{ $article->title }}</h5>
-                            <p class="card-text">{!! Str::limit($article->body, 200)  !!}</p>
+                            <p class="card-text">{!! Str::limit($article->body, $previewSymLimit)  !!}</p>
                             <div class="d-flex align-items-center text-secondary">
                                 <!-- Счетчик просмотров -->
                                 <div class="d-flex align-items-center me-4">

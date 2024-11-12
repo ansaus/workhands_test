@@ -22,10 +22,11 @@ class ArticleController extends Controller
     public function index()
     {
         $itemsPerPage = config('pagination.articles_index_per_page');
+        $previewSymLimit = config('pagination.articles_index_preview_text_symbols_limit');
         $articles = Article::latestFirst()->paginate($itemsPerPage);
         $articleDTOs = $this->getArticleDTOs($articles);
 
-        return view('articles.index', compact('articles', 'articleDTOs'));
+        return view('articles.index', compact('articles', 'articleDTOs', 'previewSymLimit'));
     }
 
     public function articleList()
@@ -33,6 +34,7 @@ class ArticleController extends Controller
         $tagId = request('tag');
 
         $itemsPerPage = config('pagination.articles_list_per_page');
+        $previewSymLimit = config('pagination.articles_list_preview_text_symbols_limit');
         if ($tagId) {
             $articles = Article::whereHas('tags', function ($query) use ($tagId) {
                 $query->where('tags.id', $tagId);
@@ -44,7 +46,7 @@ class ArticleController extends Controller
         $articleDTOs = $this->getArticleDTOs($articles);
         $tags = Tag::all();
 
-        return view('articles.list', compact('articles', 'articleDTOs', 'tags', 'tagId'));
+        return view('articles.list', compact('articles', 'articleDTOs', 'tags', 'tagId', 'previewSymLimit'));
     }
 
     public function show($id)
