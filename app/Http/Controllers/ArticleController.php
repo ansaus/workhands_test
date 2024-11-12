@@ -73,7 +73,7 @@ class ArticleController extends Controller
      * @param Article[]|mixed $articles
      * @return ArticleDTO[]
      */
-    private function getArticleDTOs(&$articles):array
+    private function getArticleDTOs($articles):array
     {
         $result = [];
         foreach ($articles as $article) {
